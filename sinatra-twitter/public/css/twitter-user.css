@@ -1,0 +1,180 @@
+a,
+.btn-link,
+.btn-link:focus,
+
+
+
+
+.pretty-link:hover s,
+.pretty-link:hover b,
+.pretty-link:focus s,
+.pretty-link:focus b,
+/* Account Group */
+.metadata a:hover,
+.metadata a:focus,
+
+.account-group:hover .fullname,
+.account-group:focus .fullname,
+.account-summary:focus .fullname,
+
+.stats a:hover,
+.stats a:hover strong,
+.stats a:focus,
+.stats a:focus strong,
+
+.profile-modal-header .fullname a:hover,
+.profile-modal-header .username a:hover,
+.profile-modal-header .fullname a:focus,
+.profile-modal-header .username a:focus,
+
+.story-article:hover .metadata,
+.story-article .metadata a:focus,
+
+.find-friends-sources li:hover .source,
+
+
+
+
+
+.stream-item a:hover .fullname,
+.stream-item a:focus .fullname,
+
+.stream-item .view-all-supplements:hover,
+.stream-item .view-all-supplements:focus,
+
+.tweet .time a:hover,
+.tweet .time a:focus,
+.tweet:hover .user-dropdown .mark-as-spam-text,
+.tweet-actions a,
+.tweet .details.with-icn b,
+
+.stream-item:hover .original-tweet .expand-action-wrapper,
+.stream-item .original-tweet a:focus .expand-action-wrapper,
+.opened-tweet.original-tweet  .expand-action-wrapper,
+
+.stream-item:hover .original-tweet .details b,
+.stream-item .original-tweet .details:focus b,
+.stream-item.open .original-tweet .details b,
+
+.simple-tweet:hover .details b,
+.simple-tweet .details:focus b,
+.simple-tweet.open .details b,
+.simple-tweet:hover .details .expand-action-wrapper,
+.simple-tweet .details:focus .expand-action-wrapper,
+.simple-tweet.open .details .collapse-action-wrapper,
+.simple-tweet:hover .details .simple-details-link,
+.simple-tweet .details:focus .simple-details-link,
+
+.client-and-actions a:hover,
+.client-and-actions a:focus,
+
+.dismiss-promoted:hover b,
+
+.tweet .context .pretty-link:hover s,
+.tweet .context .pretty-link:hover b,
+.tweet .context .pretty-link:focus s,
+.tweet .context .pretty-link:focus b,
+
+.list .username a:hover,
+.list .username a:focus,
+.list-membership-container .create-a-list,
+.list-membership-container .create-a-list:hover,
+
+
+
+.story-header:hover .view-tweets,
+.card .list-details a:hover,
+.card .list-details a:focus,
+.card .card-body:hover .attribution,
+.card .card-body .attribution:focus,
+.events-card .card-body:hover .attribution,
+.events-card .card-body .attribution:focus,
+.new-tweets-bar,
+.onebox .soccer ul.ticker a:hover,
+.onebox .soccer ul.ticker a:focus,
+
+
+
+.discover-item-actions a,
+
+
+
+.remove-background-btn,
+
+
+
+.stream-item-activity-me .latest-tweet .tweet-row a:hover,
+.stream-item-activity-me .latest-tweet .tweet-row a:focus {
+  color: #0084B4;
+}
+
+
+
+
+
+
+s,
+.pretty-link:hover s,
+.pretty-link:focus s,
+.stream-item-activity-me .latest-tweet .tweet-row a:hover s,
+.stream-item-activity-me .latest-tweet .tweet-row a:focus s {
+  color: #66B5D2;
+}
+
+
+
+
+
+.tweet .sm-reply,
+.tweet .sm-rt,
+.tweet .sm-fav,
+.tweet .sm-image,
+.tweet .sm-video,
+.tweet .sm-audio,
+.tweet .sm-geo,
+.tweet .sm-in,
+.tweet .sm-trash,
+.tweet .sm-page,
+.tweet .sm-embed,
+.tweet .sm-summary,
+.tweet .sm-chat,
+
+.tweet .mark-as-spam-flag,
+.tweet .mark-as-spam-silhouette,
+
+.timelines-navigation .active .profile-nav-icon,
+.timelines-navigation .profile-nav-icon:hover,
+.timelines-navigation .profile-nav-link:focus .profile-nav-icon,
+
+.sm-top-tweet,
+
+.metadata a.tweet-geo-text:hover .sm-geo,
+
+
+.discover-item .js-action-card-search:hover .sm-search,
+.discover-item .js-action-card-search:focus .sm-search,
+
+.tweet .share_tweet_web_option_382 .sm-more {
+  background-color: #0084B4;
+}
+
+.wrapper.black {
+background: url(https://twimg0-a.akamaihd.net/a/1350590550/t1/img/wash-black-30.png);
+}
+
+.wrapper.white {
+background: url(https://twimg0-a.akamaihd.net/a/1350590550/t1/img/wash-white-30.png);
+}
+
+
+body {
+  background-position: left 40px;
+  background-attachment: fixed;
+  background-repeat: repeat;
+    background-repeat: no-repeat;
+  background-color: #C0DEED;
+}
+
+body.user-style-robinroest {
+  background-image: url(https://twimg0-a.akamaihd.net/images/themes/theme1/bg.png);
+}

@@ -1,0 +1,99 @@
+!!! 5
+
+%html
+  %head
+
+    %title= @title || 'Twitter'
+
+    %link{:rel => "stylesheet", :href => "/css/twitter-core.css" }
+    %link{:rel => "stylesheet", :href => "/css/twitter-more.css" }
+    %link{:rel => "stylesheet", :href => "/css/twitter-user.css" }
+
+    -# %script{:type => "text/javascript", :src => "/javascripts/custom.js"}
+
+  %body{:class => "t1 logged-in user-style-robinroest"}
+    #doc
+
+      .topbar
+        .global-nav
+          .global-nav-inner
+            .container
+              %ul#global-actions.nav
+                %li#global-nav-home.home.active
+                  %a{:href => "/"} Home
+
+      #page-outer
+        #page-container.wrapper.wrapper-home.white
+          .dashboard
+            .module.mini-profile
+              .profile-summary.js-profile-summary.flex-module
+                %a{:class => "account-summary account-summary-small", :href => "/robinroest"}
+                  .content
+                    .account-group
+                      %b.fullname Robin Roestenburg
+                      %small.metadata
+                        View my profile page
+
+                  
+              .js-mini-profile-stats-container
+                %ul.stats.js-mini-profile-stats
+                  %li
+                    %a{:href => "/robinroest", :class => "js-nav"}
+                      %strong 452
+                      Tweets
+                  %li
+                    %a{:href => "/robinroest", :class => "js-nav"}
+                      %strong 178
+                      Following
+                  %li
+                    %a{:href => "/robinroest", :class => "js-nav"}
+                      %strong 77
+                      Followers
+
+              .home-tweet-box.tweet-box.component.tweet-user
+                %form{:class => "tweet-form condensed", :method => "post"}
+                  .tweet-content
+                    %textarea.tweet-box#tweet-box-mini-home-profile{:placeholder => "Compose new Tweet.."}
+                  .tweet-button
+                    %button.btn.btn-primary.tweet-action{:type => "button"}
+                      Tweet
+
+
+          #timeline.content-main
+            .content-header
+              .header-inner
+                %h2 Tweets
+            .stream-container
+              .stream.home-stream
+                .stream-items
+                  .stream-item.js-stream-item
+                    .tweet.original-tweet
+                      .content
+                        .stream-item-header
+                          %small.time 6m
+                          %a{:class => "account-group js-account-group js-action-profile js-nav", :href => ""}
+                            %strong.fullname.js-action-profile-name Robin Roestenburg
+                            %span.username.js-action-profile-name
+                              %s @
+                              %b robinroest
+                        %p.js-tweet-text
+                          Dit is mijn tweet... booyah!
+                  .stream-item.js-stream-item
+                    .tweet.original-tweet
+                      .content
+                        .stream-item-header
+                          %small.time 6m
+                          %a{:class => "account-group js-account-group js-action-profile js-nav", :href => ""}
+                            %strong.fullname.js-action-profile-name Robin Roestenburg
+                            %span.username.js-action-profile-name
+                              %s @
+                              %b robinroest
+                        %p.js-tweet-text
+                          Nog een tweet...jaja!
+                .stream-footer
+                  .timeline-end
+                    .stream-end
+                      .stream-end-inner
+
+      =yield
+
