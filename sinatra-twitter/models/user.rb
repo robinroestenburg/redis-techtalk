@@ -21,6 +21,15 @@ class User
       end
     end
 
+    def all(page = 1)
+      from = (page-1) * 50
+      to   = page * 50
+
+      redis.lrange("users", from, to).map do |user_id|
+        User.find(user_id)
+      end
+    end
+
     def create(username, password, emailaddress, fullname)
       user_id = redis.incr("user:uid")
 
@@ -70,7 +79,7 @@ class User
     end
   end
 
-  def stop_following(user)
+  def unfollow(user)
     redis.srem("user:#{id}:followees", user.id)
     user.remove_follower(self)
   end

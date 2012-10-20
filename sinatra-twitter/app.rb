@@ -36,6 +36,7 @@ class Twitter < Sinatra::Application
 
     # Timeline van huidige gebruiker
     @tweets = @user.timeline
+    @users  = User.all
 
     haml :index
   end
@@ -58,6 +59,7 @@ class Twitter < Sinatra::Application
       @number_of_followers = 77
 
       @tweets = @user.timeline
+      @users  = User.all
 
       haml :index
 
@@ -68,26 +70,38 @@ class Twitter < Sinatra::Application
 
   end
 
+  #
+  # Following and unfollowing.
+  #
   get '/:follower/follow/:followee' do |follower_username, followee_username|
     follower = User.find_by_username(follower_username)
     followee = User.find_by_username(followee_username)
-    redirect '/' unless @logged_in_user == follower
+
     follower.follow(followee)
+
     redirect "/" + followee_username
   end
 
-  get '/:follower/stopfollow/:followee' do |follower_username, followee_username|
+  get '/:follower/unfollow/:followee' do |follower_username, followee_username|
     follower = User.find_by_username(follower_username)
     followee = User.find_by_username(followee_username)
-    redirect '/' unless @logged_in_user == follower
-    follower.stop_following(followee)
+
+    follower.unfollow(followee)
+
     redirect "/" + followee_username
   end
 
+  #
+  # Profile page (tweets, followers and following).
+  #
   get '/:username' do |username|
-    @user   = User.find_by_username(username)
-    @tweets = @user.posts
-    haml :tweets, :layout => :profile
+    if @user = User.find_by_username(username)
+      @tweets = @user.posts
+      @users  = User.all
+      haml :tweets, :layout => :profile
+    else
+      redirect "/"
+    end
   end
 
   get '/:username/followers' do |username|
@@ -101,6 +115,8 @@ class Twitter < Sinatra::Application
     @followees = @user.followees
     haml :following, :layout => :profile
   end
+
+  private
 
   def current_user
     User.find(session['user_id'])

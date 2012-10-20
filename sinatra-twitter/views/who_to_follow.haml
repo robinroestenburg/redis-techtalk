@@ -1,0 +1,18 @@
+.module.has-content
+  %ul
+    %li.js-sidenav-link
+      %span.list-link Who to follow
+  .flex-module
+    .dashboard-user-recommendations.flex-module-inner
+      .account-summary.account-summary-small
+        - @users.each do |user|
+          - unless @user.following? user
+            .content
+              %a.account-group
+                %span.account-group-inner<
+                  %b.fullname= user.fullname
+                  %s @
+                  %span= user.username
+
+              %span.user-actions.not-following
+                %a.link-text.follow-text Follow 

@@ -92,22 +92,7 @@
                       Followers
                       %i.chev-right >
 
-            .module.has-content
-              %ul
-                %li.js-sidenav-link
-                  %span.list-link Who to follow
-              .flex-module
-                .js-recommended-followers.dashboard-user-recommendations.flex-module-inner
-                  .account-summary.account-summary-small
-                    .content
-                      %a.account-group
-                        %span.account-group-inner
-                          %b.fullname Wooo
-                          %s @
-                          %span wooo
-
-                      %span.user-actions.not-following
-                        %a.link-text.follow-text Follow 
+            = haml :who_to_follow
 
           = yield
 

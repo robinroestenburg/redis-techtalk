@@ -62,50 +62,9 @@
                     %button.btn{:type => "submit"}
                       Tweet
 
-            .module.has-content
-              %ul
-                %li.js-sidenav-link
-                  %span.list-link Who to follow
-              .flex-module
-                .js-recommended-followers.dashboard-user-recommendations.flex-module-inner
-                  .account-summary.account-summary-small
-                    .content
-                      %a.account-group
-                        %span.account-group-inner
-                          %b.fullname Wooo
-                          %s @
-                          %span wooo
+            = haml :who_to_follow
 
-                      %span.user-actions.not-following
-                        %a.link-text.follow-text Follow 
-              
-
-
-          #timeline.content-main
-            .content-header
-              .header-inner
-                %h2 Tweets
-            .stream-container
-              .stream.home-stream
-                .stream-items
-                  - @tweets.each do |tweet|
-                    .stream-item.js-stream-item
-                      .tweet.original-tweet
-                        .content
-                          .stream-item-header
-                            %small.time= time_ago_in_words(tweet.created_at)
-                            %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{tweet.user.username}"}
-                              %strong.fullname.js-action-profile-name= tweet.user.fullname
-                              %span.username.js-action-profile-name<
-                                %s @
-                                %b= tweet.user.username
-                          %p.js-tweet-text
-                            = tweet.content
-
-                .stream-footer
-                  .timeline-end
-                    .stream-end
-                      .stream-end-inner
+          = haml :tweets
 
       =yield
 
