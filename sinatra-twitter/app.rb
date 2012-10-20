@@ -79,7 +79,7 @@ class Twitter < Sinatra::Application
 
     follower.follow(followee)
 
-    redirect "/" + followee_username
+    redirect "/"
   end
 
   get '/:follower/unfollow/:followee' do |follower_username, followee_username|
@@ -88,7 +88,7 @@ class Twitter < Sinatra::Application
 
     follower.unfollow(followee)
 
-    redirect "/" + followee_username
+    redirect "/"
   end
 
   #
@@ -98,6 +98,7 @@ class Twitter < Sinatra::Application
     if @user = User.find_by_username(username)
       @tweets = @user.posts
       @users  = User.all
+
       haml :tweets, :layout => :profile
     else
       redirect "/"

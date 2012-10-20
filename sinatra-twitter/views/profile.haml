@@ -38,9 +38,13 @@
                   %span.follow-status follows you
 
               .profile-card-actions
-                .user-actions.btn-group.not-following
-                  %button.btn-primary.btn{:type => "button"}
-                    Follow
+                .user-actions.btn-group
+                  - if current_user.following? @user
+                    %a.btn-primary.btn{:href => "/#{current_user.username}/unfollow/#{@user.username}", :type => "button"}
+                      Unfollow
+                  - else
+                    %a.btn-primary.btn{:href => "/#{current_user.username}/follow/#{@user.username}", :type => "button"}
+                      Follow
                   
                 %ul.stats
                   %li
@@ -49,29 +53,30 @@
                       Tweets
                   %li
                     %a{:href => "/#{@user.username}/following"}
-                      %strong= @number_of_followees
+                      %strong= @user.number_of_followees
                       Following
                   %li
                     %a{:href => "/#{@user.username}/followers"}
-                      %strong= @number_of_followers
+                      %strong= @user.number_of_followers
                       Followers
 
 
           .dashboard
-            .module.component
-              .profile-tweet-box.flex-module
-                .tweet-box-title
-                  %h2
-                    Tweet to 
-                    = @user.fullname
-                %form.tweet-form{:method => "post", :action => "/post"}
-                  .tweet-content
-                    %textarea.tweet-box{:name => 'content', :placeholder => "@#{@user.username}"}
-                      @
-                      = @user.username
-                  .tweet-button
-                    %button.btn{:type => "submit"}
-                      Tweet
+            - if current_user != @user
+              .module.component
+                .profile-tweet-box.flex-module
+                  .tweet-box-title
+                    %h2
+                      Tweet to 
+                      = @user.fullname
+                  %form.tweet-form{:method => "post", :action => "/post"}
+                    .tweet-content
+                      %textarea.tweet-box{:name => 'content', :placeholder => "@#{@user.username}"}
+                        @
+                        = @user.username
+                    .tweet-button
+                      %button.btn{:type => "submit"}
+                        Tweet
 
             .component
               .module

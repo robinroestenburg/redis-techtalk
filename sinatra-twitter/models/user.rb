@@ -50,6 +50,10 @@ class User
 
   end
 
+  def ==(other)
+    @id.to_i == other.id.to_i
+  end
+
   def timeline(page = 1)
     from = (page-1) * 50
     to   = page * 50
@@ -72,40 +76,44 @@ class User
     redis.llen("user:#{@id}:posts")
   end
 
+  def number_of_followees
+    redis.scard("user:#{@id}:followees")
+  end
+
+  def number_of_followers
+    redis.scard("user:#{@id}:followers")
+  end
+
   def follow(user)
     unless user.id == @id
-      redis.sadd("user:#{id}:followees", user.id)
-      user.add_follower(self)
+      redis.sadd("user:#{@id}:followees", user.id)
+      redis.sadd("user:#{user.id}:followers", @id)
     end
   end
 
   def unfollow(user)
-    redis.srem("user:#{id}:followees", user.id)
-    user.remove_follower(self)
+    redis.srem("user:#{@id}:followees", user.id)
+    redis.srem("user:#{user.id}:followers", @id)
   end
 
   def following?(user)
-    redis.sismember("user:#{id}:followees", user.id)
+    if user == self
+      true
+    else
+      redis.sismember("user:#{@id}:followees", user.id)
+    end
   end
 
   def followers
-    redis.smembers("user:id:#{id}:followers").map do |user_id|
+    redis.smembers("user:#{@id}:followers").map do |user_id|
       User.find(user_id)
     end
   end
 
   def followees
-    redis.smembers("user:#{id}:followees").map do |user_id|
+    redis.smembers("user:#{@id}:followees").map do |user_id|
       User.find(user_id)
     end
-  end
-
-  def add_follower(user)
-    redis.sadd("user:#{id}:followers", user.id)
-  end
-
-  def remove_follower(user)
-    redis.srem("user:#{id}:followers", user.id)
   end
 
 end

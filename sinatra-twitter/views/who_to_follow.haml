@@ -1,12 +1,12 @@
 .module.has-content
   %ul
-    %li.js-sidenav-link
+    %li
       %span.list-link Who to follow
   .flex-module
     .dashboard-user-recommendations.flex-module-inner
       .account-summary.account-summary-small
         - @users.each do |user|
-          - unless @user.following? user
+          - unless current_user.following? user
             .content
               %a.account-group{:href => "/#{user.username}"}
                 %span.account-group-inner<
@@ -15,4 +15,5 @@
                   %span= user.username
 
               %span.user-actions.not-following
-                %a.link-text.follow-text Follow 
+                %a.link-text.follow-text{:href => "/#{current_user.username}/follow/#{user.username}"}
+                  Follow 

@@ -8,13 +8,17 @@
         - @followees.each do |followee|
           .stream-item
             .account
-              .user-actions.btn-group.not-following
-                %button.btn-primary.btn{:type => "button"}
-                  Follow
+              .user-actions.btn-group
+                - if current_user.following? followee
+                  %a.btn-primary.btn{:href => "/#{current_user.username}/unfollow/#{followee.username}", :type => "button"}
+                    Unfollow
+                - else
+                  %a.btn-primary.btn{:href => "/#{current_user.username}/follow/#{followee.username}", :type => "button"}
+                    Follow
 
               .content
                 .stream-item-header
-                  %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{followee.username}"}
+                  %a{:class => "account-group", :href => "/#{followee.username}"}
                     %strong.fullname.js-action-profile-name= followee.fullname
                     %span.username.js-action-profile-name<
                       %s @

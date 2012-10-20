@@ -20,6 +20,9 @@ class Post
       redis.lpush("user:#{user.id}:timeline", "#{post_id}")
 
       # Add the post to the timeline of all your followers
+      user.followers.each do |follower|
+        redis.lpush("user:#{follower.id}:timeline", "#{post_id}")
+      end
 
       find(post_id)
     end

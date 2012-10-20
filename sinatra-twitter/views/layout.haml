@@ -42,11 +42,11 @@
                       Tweets
                   %li
                     %a{:href => "/#{@user.username}/following"}
-                      %strong= @number_of_followees
+                      %strong= @user.number_of_followees
                       Following
                   %li
                     %a{:href => "/#{@user.username}/followers"}
-                      %strong= @number_of_followers
+                      %strong= @user.number_of_followers
                       Followers
 
               .tweet-user
