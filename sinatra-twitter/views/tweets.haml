@@ -1,0 +1,25 @@
+#timeline.content-main
+  .content-header
+    .header-inner
+      %h2 Tweets
+  .stream-container
+    .stream
+      .stream-items
+        - @tweets.each do |tweet|
+          .stream-item
+            .tweet
+              .content
+                .stream-item-header
+                  %small.time= time_ago_in_words(tweet.created_at)
+                  %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{tweet.user.username}"}
+                    %strong.fullname.js-action-profile-name= tweet.user.fullname
+                    %span.username.js-action-profile-name
+                      %s @
+                      %b= tweet.user.username
+                %p.js-tweet-text
+                  = tweet.content
+
+      .stream-footer
+        .timeline-end
+          .stream-end
+            .stream-end-inner

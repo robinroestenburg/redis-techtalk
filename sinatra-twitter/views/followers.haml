@@ -1,0 +1,26 @@
+#timeline.content-main
+  .content-header
+    .header-inner
+      %h2 Followers
+  .stream-container
+    .stream.home-stream
+      .stream-items
+        - @followers.each do |follower|
+          .stream-item
+            .account
+              .user-actions.btn-group.not-following
+                %button.btn-primary.btn{:type => "button"}
+                  Follow
+
+              .content
+                .stream-item-header
+                  %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{follower.username}"}
+                    %strong.fullname.js-action-profile-name= follower.fullname
+                    %span.username.js-action-profile-name<
+                      %s @
+                      %b= follower.username
+
+      .stream-footer
+        .timeline-end
+          .stream-end
+            .stream-end-inner

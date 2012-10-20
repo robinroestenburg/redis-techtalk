@@ -50,8 +50,53 @@ class User
     end
   end
 
+  def posts(page = 1)
+    from = (page-1) * 50
+    to   = page * 50
+
+    redis.lrange("user:#{@id}:posts", from, to).map do |post_id|
+      Post.find(post_id)
+    end
+  end
+
   def number_of_tweets
     redis.llen("user:#{@id}:posts")
+  end
+
+  def follow(user)
+    unless user.id == @id
+      redis.sadd("user:#{id}:followees", user.id)
+      user.add_follower(self)
+    end
+  end
+
+  def stop_following(user)
+    redis.srem("user:#{id}:followees", user.id)
+    user.remove_follower(self)
+  end
+
+  def following?(user)
+    redis.sismember("user:#{id}:followees", user.id)
+  end
+
+  def followers
+    redis.smembers("user:id:#{id}:followers").map do |user_id|
+      User.find(user_id)
+    end
+  end
+
+  def followees
+    redis.smembers("user:#{id}:followees").map do |user_id|
+      User.find(user_id)
+    end
+  end
+
+  def add_follower(user)
+    redis.sadd("user:#{id}:followers", user.id)
+  end
+
+  def remove_follower(user)
+    redis.srem("user:#{id}:followers", user.id)
   end
 
 end

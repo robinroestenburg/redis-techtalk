@@ -19,22 +19,29 @@
           .global-nav-inner
             .container
               %ul#global-actions.nav
-                %li#global-nav-home.home.active
+                %li#global-nav-home.home
                   %a{:href => "/"} Home
 
       #page-outer
         #page-container.wrapper.white
-          .dashboard
-            .module
-              .flex-module
-                %a{:class => "account-summary account-summary-small", :href => "/#{@user.username}"}
-                  .content
-                    .account-group
-                      %b.fullname= @user.fullname
-                      %small.metadata
-                        View my profile page
 
-              .div
+
+          .module.profile-card.component
+            .profile-header-inner.flex-module.clearfix
+
+              .profile-card-inner
+                %h1.fullname= @user.fullname
+                %h2.username
+                  %span.screenname<
+                    %s @
+                    = @user.username
+                  %span.follow-status follows you
+
+              .profile-card-actions
+                .user-actions.btn-group.not-following
+                  %button.btn-primary.btn{:type => "button"}
+                    Follow
+                  
                 %ul.stats
                   %li
                     %a{:href => "/#{@user.username}"}
@@ -49,18 +56,41 @@
                       %strong= @number_of_followers
                       Followers
 
-              .tweet-user
-                - if @posting_error
-                  %small
-                    = @posting_error
-                  %br
-                  %br
-                %form{:class => "tweet-form", :method => "post", :action => "post"}
+
+          .dashboard
+            .module.component
+              .profile-tweet-box.flex-module
+                .tweet-box-title
+                  %h2
+                    Tweet to 
+                    = @user.fullname
+                %form.tweet-form{:method => "post", :action => "/post"}
                   .tweet-content
-                    %textarea.tweet-box{:name => 'content', :placeholder => "Compose new Tweet.."}
+                    %textarea.tweet-box{:name => 'content', :placeholder => "@#{@user.username}"}
+                      @
+                      = @user.username
                   .tweet-button
                     %button.btn{:type => "submit"}
                       Tweet
+
+            .component
+              .module
+                %ul
+
+                  %li{:class => @tweets ? "active" : ""}
+                    %a{:class => "list-link", :href => "/#{@user.username}"}
+                      Tweets
+                      %i.chev-right >
+
+                  %li{:class => @followees ? "active" : ""}
+                    %a{:class => "list-link", :href => "/#{@user.username}/following"}
+                      Following
+                      %i.chev-right >
+
+                  %li{:class => @followers ? "active" : ""}
+                    %a{:class => "list-link", :href => "/#{@user.username}/followers"}
+                      Followers
+                      %i.chev-right >
 
             .module.has-content
               %ul
@@ -78,34 +108,6 @@
 
                       %span.user-actions.not-following
                         %a.link-text.follow-text Follow 
-              
 
-
-          #timeline.content-main
-            .content-header
-              .header-inner
-                %h2 Tweets
-            .stream-container
-              .stream.home-stream
-                .stream-items
-                  - @tweets.each do |tweet|
-                    .stream-item.js-stream-item
-                      .tweet.original-tweet
-                        .content
-                          .stream-item-header
-                            %small.time= time_ago_in_words(tweet.created_at)
-                            %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{tweet.user.username}"}
-                              %strong.fullname.js-action-profile-name= tweet.user.fullname
-                              %span.username.js-action-profile-name<
-                                %s @
-                                %b= tweet.user.username
-                          %p.js-tweet-text
-                            = tweet.content
-
-                .stream-footer
-                  .timeline-end
-                    .stream-end
-                      .stream-end-inner
-
-      =yield
+          = yield
 

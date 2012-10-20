@@ -68,6 +68,40 @@ class Twitter < Sinatra::Application
 
   end
 
+  get '/:follower/follow/:followee' do |follower_username, followee_username|
+    follower = User.find_by_username(follower_username)
+    followee = User.find_by_username(followee_username)
+    redirect '/' unless @logged_in_user == follower
+    follower.follow(followee)
+    redirect "/" + followee_username
+  end
+
+  get '/:follower/stopfollow/:followee' do |follower_username, followee_username|
+    follower = User.find_by_username(follower_username)
+    followee = User.find_by_username(followee_username)
+    redirect '/' unless @logged_in_user == follower
+    follower.stop_following(followee)
+    redirect "/" + followee_username
+  end
+
+  get '/:username' do |username|
+    @user   = User.find_by_username(username)
+    @tweets = @user.posts
+    haml :tweets, :layout => :profile
+  end
+
+  get '/:username/followers' do |username|
+    @user      = User.find_by_username(username)
+    @followers = @user.followers
+    haml :followers, :layout => :profile
+  end
+
+  get '/:username/following' do |username|
+    @user      = User.find_by_username(username)
+    @followees = @user.followees
+    haml :following, :layout => :profile
+  end
+
   def current_user
     User.find(session['user_id'])
   end
