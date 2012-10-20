@@ -107,12 +107,14 @@ class Twitter < Sinatra::Application
   get '/:username/followers' do |username|
     @user      = User.find_by_username(username)
     @followers = @user.followers
+    @users  = User.all
     haml :followers, :layout => :profile
   end
 
   get '/:username/following' do |username|
     @user      = User.find_by_username(username)
     @followees = @user.followees
+    @users  = User.all
     haml :following, :layout => :profile
   end
 

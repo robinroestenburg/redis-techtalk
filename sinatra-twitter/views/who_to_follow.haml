@@ -8,7 +8,7 @@
         - @users.each do |user|
           - unless @user.following? user
             .content
-              %a.account-group
+              %a.account-group{:href => "/#{user.username}"}
                 %span.account-group-inner<
                   %b.fullname= user.fullname
                   %s @
