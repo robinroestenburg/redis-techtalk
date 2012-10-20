@@ -11,7 +11,7 @@
 
     -# %script{:type => "text/javascript", :src => "/javascripts/custom.js"}
 
-  %body{:class => "t1 logged-in user-style-robinroest"}
+  %body{:class => "user-style-robinroest"}
     #doc
 
       .topbar
@@ -23,39 +23,43 @@
                   %a{:href => "/"} Home
 
       #page-outer
-        #page-container.wrapper.wrapper-home.white
+        #page-container.wrapper.white
           .dashboard
-            .module.mini-profile
-              .profile-summary.js-profile-summary.flex-module
-                %a{:class => "account-summary account-summary-small", :href => "/robinroest"}
+            .module
+              .flex-module
+                %a{:class => "account-summary account-summary-small", :href => "/#{@user.username}"}
                   .content
                     .account-group
-                      %b.fullname Robin Roestenburg
+                      %b.fullname= @user.fullname
                       %small.metadata
                         View my profile page
 
-                  
-              .js-mini-profile-stats-container
-                %ul.stats.js-mini-profile-stats
+              .div
+                %ul.stats
                   %li
-                    %a{:href => "/robinroest", :class => "js-nav"}
-                      %strong 452
+                    %a{:href => "/#{@user.username}"}
+                      %strong= @user.number_of_tweets
                       Tweets
                   %li
-                    %a{:href => "/robinroest", :class => "js-nav"}
-                      %strong 178
+                    %a{:href => "/#{@user.username}"}
+                      %strong= @number_of_followees
                       Following
                   %li
-                    %a{:href => "/robinroest", :class => "js-nav"}
-                      %strong 77
+                    %a{:href => "/#{@user.username}"}
+                      %strong= @number_of_followers
                       Followers
 
-              .home-tweet-box.tweet-box.component.tweet-user
-                %form{:class => "tweet-form condensed", :method => "post"}
+              .tweet-user
+                - if @posting_error
+                  %small
+                    = @posting_error
+                  %br
+                  %br
+                %form{:class => "tweet-form", :method => "post", :action => "post"}
                   .tweet-content
-                    %textarea.tweet-box#tweet-box-mini-home-profile{:placeholder => "Compose new Tweet.."}
+                    %textarea.tweet-box{:name => 'content', :placeholder => "Compose new Tweet.."}
                   .tweet-button
-                    %button.btn.btn-primary.tweet-action{:type => "button"}
+                    %button.btn{:type => "submit"}
                       Tweet
 
 
@@ -66,30 +70,20 @@
             .stream-container
               .stream.home-stream
                 .stream-items
-                  .stream-item.js-stream-item
-                    .tweet.original-tweet
-                      .content
-                        .stream-item-header
-                          %small.time 6m
-                          %a{:class => "account-group js-account-group js-action-profile js-nav", :href => ""}
-                            %strong.fullname.js-action-profile-name Robin Roestenburg
-                            %span.username.js-action-profile-name
-                              %s @
-                              %b robinroest
-                        %p.js-tweet-text
-                          Dit is mijn tweet... booyah!
-                  .stream-item.js-stream-item
-                    .tweet.original-tweet
-                      .content
-                        .stream-item-header
-                          %small.time 6m
-                          %a{:class => "account-group js-account-group js-action-profile js-nav", :href => ""}
-                            %strong.fullname.js-action-profile-name Robin Roestenburg
-                            %span.username.js-action-profile-name
-                              %s @
-                              %b robinroest
-                        %p.js-tweet-text
-                          Nog een tweet...jaja!
+                  - @tweets.each do |tweet|
+                    .stream-item.js-stream-item
+                      .tweet.original-tweet
+                        .content
+                          .stream-item-header
+                            %small.time= time_ago_in_words(tweet.created_at)
+                            %a{:class => "account-group js-account-group js-action-profile js-nav", :href => "/#{tweet.user.username}"}
+                              %strong.fullname.js-action-profile-name= tweet.user.fullname
+                              %span.username.js-action-profile-name
+                                %s @
+                                %b= tweet.user.username
+                          %p.js-tweet-text
+                            = tweet.content
+
                 .stream-footer
                   .timeline-end
                     .stream-end

@@ -1,0 +1,47 @@
+%h1 Login
+- if @login_error
+  .error
+    = @login_error
+
+%form{:action => "/login", :method => "post"}
+  %table
+    %tr
+      %td Username
+      %td
+        %input{:name => "username"}
+    %tr
+      %td Password
+      %td
+        %input{:type => "password", :name => "password"}
+
+  %input{:type => "submit", :value => "Log in"}
+
+%h1 Signup
+- if @signup_error
+  .error
+    = @signup_error
+
+%form{:action => "/signup", :method => "post"}
+  %table
+    %tr
+      %td Username
+      %td
+        %input{:name => "username"}
+    %tr
+      %td Screen name
+      %td
+        %input{:name => "fullname"}
+    %tr
+      %td Emailaddress
+      %td
+        %input{:name => "emailaddress"}
+    %tr
+      %td Password
+      %td
+        %input{:type => "password", :name => "password"}
+    %tr
+      %td Password confirmation
+      %td
+        %input{:type => "password", :name => "password_confirmation"}
+
+  %input{:type => "submit", :value => "Create an account"}
