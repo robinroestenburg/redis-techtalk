@@ -13,7 +13,7 @@ start = Time.now
 
 File.open(ARGV[0]).each do |line|
   count += 1
-  $redis.sadd('keys:all', line.strip)
+  $redis.sadd("keys:all", line.strip)
 
   puts "#{count}" if (count % 10_000 == 0)
 end
