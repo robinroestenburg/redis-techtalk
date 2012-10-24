@@ -55,45 +55,65 @@ class User
   end
 
   def timeline(page = 1)
-    []
+    from = (page-1) * 50
+    to   = page * 50
+
+    redis.lrange("user:#{@id}:timeline", from, to).map do |post_id|
+      Post.find(post_id)
+    end
   end
 
   def posts(page = 1)
-    []
+    from = (page-1) * 50
+    to   = page * 50
+
+    redis.lrange("user:#{@id}:posts", from, to).map do |post_id|
+      Post.find(post_id)
+    end
   end
 
   def number_of_tweets
-    0
+    redis.llen("user:#{@id}:posts")
   end
 
   def number_of_followees
-    0
+    redis.scard("user:#{@id}:followees")
   end
 
   def number_of_followers
-    0
+    redis.scard("user:#{@id}:followers")
   end
 
   def follow(user)
+    unless user.id == @id
+      redis.sadd("user:#{@id}:followees", user.id)
+      redis.sadd("user:#{user.id}:followers", @id)
+    end
   end
 
   def unfollow(user)
+    redis.srem("user:#{@id}:followees", user.id)
+    redis.srem("user:#{user.id}:followers", @id)
   end
 
   def following?(user)
     if user == self
       true
     else
-      false
+      redis.sismember("user:#{@id}:followees", user.id)
     end
   end
 
   def followers
-    []
+    redis.smembers("user:#{@id}:followers").map do |user_id|
+      User.find(user_id)
+    end
   end
 
   def followees
-    []
+    redis.smembers("user:#{@id}:followees").map do |user_id|
+      User.find(user_id)
+    end
   end
 
 end
